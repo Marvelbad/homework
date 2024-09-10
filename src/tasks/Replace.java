@@ -1,3 +1,5 @@
+package tasks;
+
 public class Replace {
     public static void main(String[] args) {
         String path = "/usr/java/jdk1.8/bin/";
