@@ -5,10 +5,15 @@ public class Replace {
         String path = "/usr/java/jdk1.8/bin/";
 
         String jdk13 = "jdk-13";
-        System.out.println(n);
+        System.out.println(changePath(path, jdk13));
     }
 
-    public static String changePath(String path, String jdk13) {
+    public static String changePath(String path, String jdk) {
         int index = path.indexOf("jdk");
+        int index2 = path.indexOf("/", index);
+        String pathOne = path.substring(0, index);
+        String pathTwo = path.substring(index2);
+
+        return pathOne + jdk + pathTwo;
     }
 }
