@@ -10,14 +10,16 @@ public class Tokenaizer_Ver_2 {
         System.out.println(Arrays.toString(tokens));
     }
 
-    public static String[] getTokens(String packagePath, String delimiter) {
-        StringTokenizer tokenizer = new StringTokenizer(packagePath, delimiter);
+    public static String[] getTokens(String query, String delimiter) {
+        StringTokenizer tokenizer = new StringTokenizer(query, delimiter);
         int n = tokenizer.countTokens();
         String[] tokens = new String[n];
+
         int i = 0;
         while (tokenizer.hasMoreTokens()) {
             tokens[i++] = tokenizer.nextToken();
         }
         return tokens;
     }
-}
+
+    }
