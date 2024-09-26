@@ -3,12 +3,12 @@ package com.mypractice.Object_class.Student;
 import java.util.Objects;
 
 public class Student {
-    String name;
-    int id;
-    int age;
-    String major;  //Profession
-    double gpa;
-    String university;
+    private final String name;
+    private final int id;
+    private final int age;
+    private final String major;  //Profession
+    private final double gpa;
+    private final String university;
 
     public Student(String name, int id, int age, String major, double gpa, String university) {
         this.name = name;
