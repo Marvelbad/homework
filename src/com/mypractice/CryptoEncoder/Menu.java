@@ -1,4 +1,4 @@
 package com.mypractice.CryptoEncoder;
 
-public class ConsoleHelper {
+public class Menu {
 }

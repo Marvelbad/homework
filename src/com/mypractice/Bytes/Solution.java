@@ -1,25 +1,26 @@
 package com.mypractice.Bytes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class Solution {
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in);
-             var inputStream = Files.newInputStream(Paths.get(scanner.nextLine()));
-             var outputStream = Files.newOutputStream(Paths.get(scanner.nextLine()))) {
+        Scanner scanner = new Scanner(System.in);
+        String fileName = scanner.nextLine();
+        Path path = Paths.get(fileName);
 
-            byte[] bytesIn = inputStream.readAllBytes();
-
-
-
-
-
-
+        try {
+            List<String> lines = Files.readAllLines(path);
+            for (int i = 0; i < lines.size(); i += 2) {
+                System.out.println(lines.get(i));
+            }
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("File not found");
         }
     }
 }

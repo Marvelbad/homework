@@ -11,13 +11,7 @@ public class Iphone {
         this.color = color;
         this.price = price;
     }
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Iphone iphone = (Iphone) object;
-        return price == iphone.price && model.equals(iphone.model) && color.equals(iphone.color);
-    }
+
 
     public static void main(String[] args) {
         Iphone iphone1 = new Iphone("X", "Black", 999);

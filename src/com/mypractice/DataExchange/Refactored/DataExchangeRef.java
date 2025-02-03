@@ -25,7 +25,9 @@ public class DataExchangeRef {
             try {
                 String response = client.sendPostRequest("http://httpbin.org/post", jsonBody);
                 System.out.println("Server answer: " + response);
-            } catch (HttpRetryException e)
+            } catch (HttpRetryException e) {
+                System.out.printf("Error" + e.getLocation());
+            }
         }
     }
 }

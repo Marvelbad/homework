@@ -38,6 +38,6 @@ public class SimpleLinkedList {
         list.add("4");
         list.add("5");
 
-        list.printAll();
+      //  list.printAll();
     }
 }
