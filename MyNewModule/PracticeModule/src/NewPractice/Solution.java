@@ -10,10 +10,14 @@ import java.util.stream.Stream;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        String helloWorld = "HelloWorld";
-        String hello = "Hello";
-        String world = "World";
-        String concatenated = hello + world;
-        System.out.println(helloWorld == concatenated);
+        Example example1 = new Example();
+        Thread thread1 = new Thread(example1);
+
+        Example example2 = new Example();
+        Thread thread2 = new Thread(example2);
+
+        thread1.start();
+        thread1.join();
+        thread2.start();
     }
 }
