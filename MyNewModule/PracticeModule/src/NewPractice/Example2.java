@@ -1,19 +1,27 @@
 package NewPractice;
 
-import java.util.TreeSet;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Example2 {
-    public static void main(String[] args) {
-        TreeSet<String> text = new TreeSet<String>();
+    public static void main(String[] args) throws IOException {
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
 
-        text.add(".part2");
-        text.add(".part1");
-        text.add(".part3");
-        text.add(".part5");
-        text.add(".part4");
+//        List<String> words = List.of("Java", "Spring", "Predicate", "Stream", "API");
 
-        String s = text.first();
+        List<Integer> numbers = List.of(2,4,8,1,5);
 
-        System.out.println(s);
+        List<Integer> num = numbers.stream()
+                .map(x -> x * 2)
+                .filter(x-> x % 2 == 0)
+                .sorted(Comparator.reverseOrder())
+                .toList();
+
+        System.out.println(num);
     }
 }
