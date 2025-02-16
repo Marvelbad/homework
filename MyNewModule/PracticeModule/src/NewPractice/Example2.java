@@ -12,16 +12,15 @@ public class Example2 {
     public static void main(String[] args) throws IOException {
         TreeMap<Integer, String> treeMap = new TreeMap<>();
 
-//        List<String> words = List.of("Java", "Spring", "Predicate", "Stream", "API");
+        treeMap.put(5, "String");
+        treeMap.put(2,"Hello");
+        treeMap.put(1, "Name");
+        treeMap.put(3, "Alex");
+        treeMap.put(10, "Alex");
+        treeMap.put(9, "Alex");
+        treeMap.put(12, "Alex");
+        treeMap.put(11, "Alex");
 
-        List<Integer> numbers = List.of(2,4,8,1,5);
-
-        List<Integer> num = numbers.stream()
-                .map(x -> x * 2)
-                .filter(x-> x % 2 == 0)
-                .sorted(Comparator.reverseOrder())
-                .toList();
-
-        System.out.println(num);
+        System.out.println(treeMap);
     }
 }
