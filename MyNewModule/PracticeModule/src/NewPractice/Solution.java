@@ -14,37 +14,42 @@ import java.util.stream.Stream;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        if (!args[0].equals("-c")) return;
 
-        TreeMap<Integer, String> files = new TreeMap<>();
+        BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
-        while (true) {
-            String input = reader.readLine();
-            if (input.equalsIgnoreCase("end")) break;
+        String filename = console.readLine();
 
-            String[] parts = input.split("\\.part");
-            int partNumber = Integer.parseInt(parts[1]);
-            files.put(partNumber, input);
-        }
-//        System.out.println(files);
-        String firstFile = files.firstEntry().getValue();//вернет пару ключ-значение с наименьш ключом и вытиянем значение
-        String outputFileName = firstFile.split("\\.part")[0]; //Берем все до ".part"
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
 
-        try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFileName))) {
-            files.entrySet().stream()
-                    .map(entry -> entry.getValue()) //берем имена файлов
-                    .forEach(fileName -> {
-                                try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream())) {
-                                    byte[] buffer = new byte[1024];
-                                    int bytesRead;
-                                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                                        outputStream.write(buffer, 0, bytesRead);
-                                    }
-                                } catch (IOException e) {
-                                    throw new UncheckedIOException(e);
-                                }
-                            }
-                    );
+            int maxId = Integer.MIN_VALUE;
+            while (reader.ready()) {
+                String fileData = reader.readLine();
+                String curId = fileData.substring(0, 8).trim();
+                int parsedId = Integer.parseInt(curId);
+                if (parsedId > maxId) {
+                    maxId = parsedId;
+                }
+            }
+            maxId++;
+
+            // Формирование новой строки
+            int newId = maxId;
+            String productName = args[1];
+            String price = args[2];
+            String quantity = args[3];
+
+            // Formatting
+            String formattedId = String.format("%-8d", newId);
+            String formattedProductName = String.format("%-30s", productName.length() > 30 ? productName.substring(0, 30) : productName);
+            String formattedPrice = String.format("%-8s", price);
+            String formattedQuantity = String.format("%-4s", quantity);
+
+            String newLine = formattedId + formattedProductName + formattedPrice + formattedQuantity;
+
+            writer.newLine();
+            writer.write(newLine);
         }
     }
 }
