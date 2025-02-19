@@ -1,8 +1,6 @@
 package NewPractice;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -10,17 +8,33 @@ import java.util.stream.Stream;
 
 public class Example2 {
     public static void main(String[] args) throws IOException {
-        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        List<String> textLines = new ArrayList<>();
+        textLines.add("One");
+        textLines.add("Two");
+        textLines.add("Three");
+        textLines.add("Four");
+        textLines.add("Five");
 
-        treeMap.put(5, "String");
-        treeMap.put(2,"Hello");
-        treeMap.put(1, "Name");
-        treeMap.put(3, "Alex");
-        treeMap.put(10, "Alex");
-        treeMap.put(9, "Alex");
-        treeMap.put(12, "Alex");
-        treeMap.put(11, "Alex");
+        String filePath = "/Users/badribagateliya/IdeaProjects/Learning Project/MyNewModule/PracticeModule/src/NewPractice/text";
 
-        System.out.println(treeMap);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String str : textLines) {
+                writer.write(str);
+                writer.newLine();
+            }
+            System.out.println("Arraylist written to file successfully");
+            System.out.println("-----------------------------------------");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            System.out.println("File contents: ");
+            System.out.println(" ");
+            String line;
+            while ((line = reader.readLine()) != null)
+                System.out.println(line);
+        }
     }
 }
