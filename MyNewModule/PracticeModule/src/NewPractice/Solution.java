@@ -14,42 +14,49 @@ import java.util.stream.Stream;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        if (!args[0].equals("-c")) return;
+        if (args == null || args.length == 0) return;
+
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
 
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
-        String filename = console.readLine();
+        String fileName = console.readLine();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            if (args[0].equals("-u")) {
+                String fileData;
+                while ((fileData = reader.readLine()) != null) {
+                    String currentId = fileData.substring(0, 8).trim();
+                    Integer id = Integer.parseInt(currentId);
 
-            int maxId = Integer.MIN_VALUE;
-            while (reader.ready()) {
-                String fileData = reader.readLine();
-                String curId = fileData.substring(0, 8).trim();
-                int parsedId = Integer.parseInt(curId);
-                if (parsedId > maxId) {
-                    maxId = parsedId;
+                    String productName = fileData.substring(8, 38).trim();
+                    String price = fileData.substring(38, 46).trim();
+                    String quantity = fileData.substring(46).trim();
+
+
+                    if (currentId.equals(args[1])) {
+                        String updateLine = String.format("%-8s%-30s%-8s%-4s",
+                                args[1],
+                                args[2],
+                                args[3],
+                                args[4]);
+                        treeMap.put(id, updateLine);
+                    } else {
+                        treeMap.put(id, String.format("%-30s%-8s%-4s", productName, price, quantity));
+                    }
                 }
             }
-            maxId++;
-
-            // Формирование новой строки
-            int newId = maxId;
-            String productName = args[1];
-            String price = args[2];
-            String quantity = args[3];
-
-            // Formatting
-            String formattedId = String.format("%-8d", newId);
-            String formattedProductName = String.format("%-30s", productName.length() > 30 ? productName.substring(0, 30) : productName);
-            String formattedPrice = String.format("%-8s", price);
-            String formattedQuantity = String.format("%-4s", quantity);
-
-            String newLine = formattedId + formattedProductName + formattedPrice + formattedQuantity;
-
-            writer.newLine();
-            writer.write(newLine);
         }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<Integer, String> entry : treeMap.entrySet()) {
+                writer.write(String.format("%-8s%s\n", entry.getKey().toString(), entry.getValue()));
+            }
+        }
+
+        String id = args[1];
+        String productName = args[2];
+        String price = args[3];
+        String quantity = args[4];
     }
 }
