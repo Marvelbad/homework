@@ -40,7 +40,15 @@ public class Solution {
                     map.put(id, updateLine);
                 } else if (args[0].equals("-d") && currentId.equals(args[1])) {
                     continue;
+                } else {
+                    map.put(id, String.format("%-30s%-8s%-4s", productName, price, quantity));
                 }
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Map.Entry<Integer, String> entry :map.entrySet()) {
+                writer.write(String.format("%-8s%s\n", entry.getKey().toString(), entry.getValue()));
             }
         }
     }
