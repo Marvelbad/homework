@@ -14,41 +14,25 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Solution {
+    public static final List<Person> PEOPLE = new ArrayList<Person>();
+
     public static void main(String[] args) throws Exception {
-        if (args == null || args.length == 0) return;
+        String path = "/Users/badribagateliya/IdeaProjects/Learning Project/MyNewModule/PracticeModule/src/NewPractice/textFile";
 
-        Map<Integer, String> map = new LinkedHashMap<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String name = line.replaceAll("\\d", "").trim();
 
-        BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-        String fileName = console.readLine();
+                String date = line.replaceAll("\\D", "").replaceFirst("(\\d{2})(\\d{2})(\\d+)", "$1 $2 $3");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
+                Date date1 = dateFormat.parse(date);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String fileData;
-            while ((fileData = reader.readLine()) != null) {
-                String currentId = fileData.substring(0, 8).trim();
-                int id = Integer.parseInt(fileData);
+                PEOPLE.add(new Person(name, date1));
 
-                String productName = fileData.substring(8, 38).trim();
-                String price = fileData.substring(38, 46).trim();
-                String quantity = fileData.substring(46).trim();
+                PEOPLE.forEach(person -> System.out.println(person.getName() + " - " + person.getBirthDate()));
 
-                if (args[0].equals("-u") && currentId.equals(args[1])) {
-                    String updateLine = String.format("%-30s%-8s%-4s",
-                            args[2],
-                            args[3],
-                            args[4]);
-                    map.put(id, updateLine);
-                } else if (args[0].equals("-d") && currentId.equals(args[1])) {
-                    continue;
-                } else {
-                    map.put(id, String.format("%-30s%-8s%-4s", productName, price, quantity));
-                }
-            }
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Map.Entry<Integer, String> entry :map.entrySet()) {
-                writer.write(String.format("%-8s%s\n", entry.getKey().toString(), entry.getValue()));
+//                System.out.println(name + " " + dateFormat.format(date1));
             }
         }
     }
