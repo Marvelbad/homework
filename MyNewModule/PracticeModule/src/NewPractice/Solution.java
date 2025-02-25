@@ -3,20 +3,22 @@ package NewPractice;
 public class Solution {
     public static void main(String[] args) throws Exception {
 
-        stringArray("Hello World and Java");
+        System.out.println(getWordsReverseInColumn("Hello my nice world"));
     }
 
-    public static void stringArray(String word) {
-        if (word == null || word.isEmpty() || word.trim().isEmpty()) {
+    public static String getWordsReverseInColumn(String str) {
+        if (str == null || str.isEmpty() || str.trim().isEmpty()) {
             System.out.println("Wrong string");
-            return;
         }
-        String[] arr = word.split(" ");
-        for (String s : arr) {
-            StringBuilder builder = new StringBuilder(s);
-            String result = builder.reverse().toString();
 
-            System.out.print(result + " ");
+        String[] words = str.split(" ");
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            StringBuilder builder = new StringBuilder(word);
+            result.append(builder.reverse().toString()).append("\n");
         }
+        return result.toString().trim();
     }
+
 }
