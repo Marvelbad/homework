@@ -12,8 +12,7 @@ public class Test {
 
         int sum = numList.stream()
                 .filter(num -> num % 2 == 0)
-                .sorted(Comparator.reverseOrder())
-                .mapToInt(Integer::intValue)
+                .mapToInt(Integer::valueOf)
                 .sum();
         System.out.println(sum);
     }
