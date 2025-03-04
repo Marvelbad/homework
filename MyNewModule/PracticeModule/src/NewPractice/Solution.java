@@ -1,23 +1,22 @@
 package NewPractice;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        printStringReverse("Hello");
+        maxCharIndex("aabbbcccc");
     }
 
-    public static void printStringReverse(String str) {
-        if (str == null || str.isEmpty()) {
-            System.out.println("Wrong string");
+    public static int maxCharIndex(String str) {
+        if (str ==null || str.trim().isEmpty()) {
+            return -1;
         }
 
-        String res = str.substring(0,3);
-
-        System.out.println(new StringBuilder(res).reverse());
+        Map<Character, Integer> charFrequency = new HashMap<>();
+        for (char c : str.toCharArray()) {
+            charFrequency.put(c, charFrequency.getOrDefault(c, 0) +1);
+        }
     }
 }
