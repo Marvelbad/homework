@@ -3,6 +3,9 @@ package NewPractice;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Test {
     public static void main(String[] args) {
@@ -14,19 +17,18 @@ public class Test {
             return -1;
         }
 
-        Map<Character, Integer> freqMap = new HashMap<>();
-        for (char c : str.toCharArray()) {
-            freqMap.put(c, freqMap.getOrDefault(c, 0) +1);
-        }
+        Map<Character, Long> charCount = str.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        int maxFreq = 0;
-        for (int freq : freqMap.values())
-            if (freq > maxFreq) {
-                maxFreq = freq;
-            }
+        long maxFrequency = charCount.values().stream()
+                .mapToLong(Long::longValue)
+                .max()
+                .orElse(0L);
 
-        for (int i =0; i < )
-
-        return -1;
+        return IntStream.range(0, str.length())
+                .filter(i -> charCount.get(str.charAt(i)) == maxFrequency)
+                        .findFirst()
+                        .orElse(-1);
     }
 }
