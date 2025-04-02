@@ -1,34 +1,39 @@
-package NewPractice;
+package Coding;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Test {
-    public static void main(String[] args) {
-        maxCharIndex("aabbbcccc");
+    public static volatile int numSeconds = 4;
+
+    public static void main(String[] args) throws InterruptedException {
+        RacingClock clock = new RacingClock();
+        Thread.sleep(3500);
+        clock.interrupt();
     }
 
-    public static int maxCharIndex(String str) {
-        if (str == null || str.trim().isEmpty()) {
-            return -1;
+    public static class RacingClock extends Thread {
+
+
+        public RacingClock() {
+            start();
         }
 
-        Map<Character, Long> charCount = str.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        long maxFrequency = charCount.values().stream()
-                .mapToLong(Long::longValue)
-                .max()
-                .orElse(0L);
-
-        return IntStream.range(0, str.length())
-                .filter(i -> charCount.get(str.charAt(i)) == maxFrequency)
-                        .findFirst()
-                        .orElse(-1);
+        @Override
+        public void run() {
+            try {
+                while (numSeconds > 0) {
+                    System.out.print(numSeconds + " ");
+                    Thread.sleep(1000);
+                    numSeconds --;
+                }
+                System.out.println("Марш!");
+            } catch (InterruptedException e) {
+                System.out.println("Прервано!");
+                return;
+            }
+        }
     }
 }
