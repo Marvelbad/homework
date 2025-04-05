@@ -6,34 +6,43 @@ import java.util.List;
 import java.util.Map;
 
 public class Test {
-    public static volatile int numSeconds = 4;
+    public static Thread.UncaughtExceptionHandler handler = new OurUncaughtExceptionHandler();
 
     public static void main(String[] args) throws InterruptedException {
-        RacingClock clock = new RacingClock();
-        Thread.sleep(3500);
-        clock.interrupt();
+        TestedThread commonThread = new TestedThread(handler);
+
+        Thread threadA = new Thread(commonThread, "Нить 1");
+        Thread threadB = new Thread(commonThread, "Нить 2");
+
+        threadA.start();
+        threadB.start();
+
+        threadA.interrupt();
+        threadB.interrupt();
     }
 
-    public static class RacingClock extends Thread {
 
 
-        public RacingClock() {
+
+    public static class TestedThread extends Thread {
+        public TestedThread(Thread.UncaughtExceptionHandler handler) {
+            setUncaughtExceptionHandler(handler);
             start();
         }
 
-        @Override
         public void run() {
             try {
-                while (numSeconds > 0) {
-                    System.out.print(numSeconds + " ");
-                    Thread.sleep(1000);
-                    numSeconds --;
-                }
-                System.out.println("Марш!");
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
-                System.out.println("Прервано!");
-                return;
+                throw new RuntimeException("Error message");
             }
+        }
+    }
+
+    public static class OurUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
+        @Override
+        public void uncaughtException(Thread t, Throwable e) {
+            System.out.println(t.getName() + ": " + e.getMessage());
         }
     }
 }
