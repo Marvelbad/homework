@@ -1,40 +1,82 @@
-package NewPractice;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-public class Solution {
-    public static void main(String[] args) throws Exception {
-        maxCharIndex("aabbbcccc");
-
-    }
-
-    public static int maxCharIndex(String str) {
-        if (str == null || str.trim().isEmpty()) {
-            return -1;
-        }
-
-        HashMap<Character, Integer> mapCount = new HashMap<>();
-
-        for (char c : str.toCharArray()) {
-            mapCount.put(c, mapCount.getOrDefault(c, 0) +1);
-        }
-
-        int maxFreq = 0;
-
-        for (Map.Entry<Character, Integer> entry : mapCount.entrySet()) {
-            if (entry.getValue() > maxFreq) {
-                maxFreq = entry.getValue();
-            }
-        }
-
-        for (int i =0; i < str.length(); i++) {
-            if (mapCount.get(str.charAt(i)) == maxFreq) {
-                return i;
-            }
-        }
-
-        return maxFreq;
-    }
-}
+//package NewPractice;
+//
+//public class BankClient {
+//
+//    private int id;
+//    private String name;
+//    private String lastname;
+//    private double balance;
+//
+//    public BankClient(String name, String lastname, double balance) {
+//        this.name = name;
+//        this.lastname = lastname;
+//        this.balance = balance;
+//        this.id = counter++;
+//    }
+//
+//    private static int counter = 1;
+//
+//    public String getInfo() {
+//        return "ID: " + id + ", Клиент: " + name + " " + lastname + " " + " Баланс: " + +balance + " RUB.";
+//    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public String getLastname() {
+//        return lastname;
+//    }
+//
+//    public double getBalance() {
+//        return balance;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public void setLastname(String lastname) {
+//        this.lastname = lastname;
+//    }
+//
+//    /**
+//     * Возвращает строку с текущим балансом клиента.
+//     */
+//    public String checkBalance() {
+//        return "Клиент: " + name + " " + lastname + " , остаток на счете: " + balance + " RUB.";
+//    }
+//
+//    /**
+//     * Пополняет счёт клиента на указанную сумму.
+//     *
+//     * @param amount сумма пополнения
+//     * @return обновлённый баланс
+//     */
+//    public double deposit(double amount) {
+//        System.out.println("Пополнение, счет RUB: " + amount);
+//        balance = balance + amount;
+//        return balance;
+//    }
+//
+//    /**
+//     * Снимает указанную сумму со счёта, если хватает средств.
+//     *
+//     * @param amount сумма снятия
+//     * @return текущий баланс после операции
+//     */
+//    public double withDraw(double amount) {
+//        if (balance >= amount) {
+//            System.out.println("Снятие наличных: " + amount + "RUB.");
+//            balance -= amount;
+//        } else {
+//            System.out.println("Недостаточно средств.");
+//        }
+//        return balance;
+//    }
+//
+//}
