@@ -8,6 +8,7 @@ import java.util.Map;
 public class CarFleet {
     List<Car> cars = new ArrayList<>();
 
+
     private final Map<Integer, String> renters = new HashMap<>();
 
 
