@@ -60,7 +60,6 @@ public class Solution {
 
         public void load(InputStream inputStream) throws Exception {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            users.clear();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");

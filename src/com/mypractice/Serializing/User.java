@@ -10,6 +10,11 @@ public class User {
     private boolean isMale;
     private Country country;
 
+    /**
+     *
+     * Getters
+     */
+
     public String getFirstName() {
         return firstName;
     }
@@ -29,6 +34,11 @@ public class User {
     public Country getCountry() {
         return country;
     }
+
+
+    /**
+     * Setters
+     */
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -50,6 +60,10 @@ public class User {
         this.country = country;
     }
 
+    /**
+     * Enum
+     */
+
     public static enum Country {
         UKRAINE("Ukraine"),
         RUSSIA("Russia"),
@@ -65,6 +79,8 @@ public class User {
             return this.name;
         }
     }
+
+
 
     @Override
     public boolean equals(Object o) {
