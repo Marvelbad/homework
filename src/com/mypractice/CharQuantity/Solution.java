@@ -4,21 +4,18 @@ import java.io.*;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        File path = new File(args[0]);
-        BufferedReader reader = new BufferedReader(new FileReader(path));
-        String line;
-
-        StringBuilder builder = new StringBuilder();
-        while ((line = reader.readLine()) != null) {
-            builder.append(line);
+        int total = 0;
+        int spaces = 0;
+        try (FileReader fileReader = new FileReader(args[0])) {
+            while (fileReader.ready()) {
+                int readChar = fileReader.read();
+                total++;
+                if (readChar == (int) ' ') spaces++;
+            }
+            if (total != 0) {
+                double result = (double) spaces / total * 100;
+                System.out.printf("%.2f", result);
+            }
         }
-        String allText = builder.toString();
-        int allCharsCount = allText.length();
-        int allSpacesCount = allText.replaceAll("[^ ]", "").length();
-
-        double percentage = (double) allSpacesCount / allCharsCount * 100;
-
-        System.out.println("Symbols quantity: " + allCharsCount + "\n" + "Spaces quantity: " + allSpacesCount);
-        System.out.println("Spaces percentage: " + Math.round(percentage));
     }
 }
