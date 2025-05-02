@@ -8,21 +8,22 @@ public class Solution {
         String fileName1 = reader.readLine();
         String fileName2 = reader.readLine();
 
-        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(fileName1));
-             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(fileName1));
-             BufferedInputStream inputStream1 = new BufferedInputStream(new FileInputStream(fileName2));
-
-
+        try (FileInputStream input1 = new FileInputStream(fileName1);
+             FileInputStream input2 = new FileInputStream(fileName2);
         ) {
-
-            byte[] byteArr = new byte[8192];
-            byte
-            while (inputStream.read() != -1) {
-                inputStream.read(byteArr);
+            ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+            int bytesRead;
+            byte[] buffer = new byte[4096];
+            while ((bytesRead = input2.read(buffer)) != -1) {
+                arrayOutputStream.write(buffer, 0, bytesRead);
             }
-
-        } catch (FileNotFoundException e) {
-            e.getMessage();
+            while ((bytesRead = input1.read(buffer)) != -1) {
+                arrayOutputStream.write(buffer, 0, bytesRead);
+            }
+            try (FileOutputStream outputStream = new FileOutputStream(fileName1)
+            ) {
+                arrayOutputStream.writeTo(outputStream);
+            }
         }
     }
 }
