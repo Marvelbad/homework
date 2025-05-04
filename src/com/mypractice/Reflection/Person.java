@@ -15,7 +15,7 @@ public class Person {
     }
 
     public void sayHello() {
-        System.out.println("Person with id: " +  id + " and name: " + name + " says hello");
+        System.out.println("Child with id: " +  id + " and name: " + name + " says hello");
     }
 
     public String getName() {
@@ -32,5 +32,13 @@ public class Person {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Child{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                '}';
     }
 }
