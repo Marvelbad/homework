@@ -7,13 +7,13 @@ public class Main {
         Employee employee2 = new Employee("Alex", 350, "Office", 8000);
 
         if (employee.hashCode() == employee1.hashCode() && employee.equals(employee1)) {
-            System.out.println("Employee and Employee1 are similar.");
+            System.out.println("Child and Employee1 are similar.");
         }   else {
             System.out.println("Not similar");
         }
 
         if (employee.hashCode() == employee2.hashCode() && employee.equals(employee2)) {
-            System.out.println("Employee and Employee2 are similar.");
+            System.out.println("Child and Employee2 are similar.");
         }   else {
             System.out.println("Not similar");
         }
