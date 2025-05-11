@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Solution {
     public static void main(String[] args) {
-        String text = "Hello24, my name is Bad and i am 28";
+        String text = "Hello24, my name is Bad and i am 280";
         Pattern pattern = Pattern.compile("(?<=\\s|^)\\d+(?=\\s|$)");
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
