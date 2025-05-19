@@ -43,17 +43,27 @@ public class Solution {
                 lines.add(new LineItem(Type.SAME, originalLines.get(i)));
                 i++;
                 j++;
-            } else if (originalLines.get(i) &&) {
-                
+            } else if ((j + 1) < updatedLines.size() && originalLines.get(i).equals(updatedLines.get(j + 1))) {
+                lines.add(new LineItem(Type.ADDED, updatedLines.get(j)));
+                j++;
+            } else if ((i + 1) < originalLines.size() && originalLines.get(i + 1).equals(updatedLines.get(j))) {
+                lines.add(new LineItem(Type.REMOVED, originalLines.get(i)));
+                i++;
             }
         }
+
+        // Всё, что осталось в originalLines — это REMOVED
+        while (i < originalLines.size()) {
+            lines.add(new LineItem(Type.REMOVED, originalLines.get(i)));
+            i++;
+        }
+
+// Всё, что осталось в updatedLines — это ADDED
+        while (j < updatedLines.size()) {
+            lines.add(new LineItem(Type.ADDED, updatedLines.get(j)));
+            j++;
+        }
     }
-
-
-
-
-
-
 
 
     public static class LineItem {
