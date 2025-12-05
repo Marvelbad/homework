@@ -14,57 +14,54 @@ public class Solution {
 
     public static void main(String[] args) throws IOException {
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-        String file1Lines = console.readLine();
-        String file2Lines = console.readLine();
+        String fileName1 = console.readLine();
+        String fileName2 = console.readLine();
         console.close();
 
         List<String> originalLines = new ArrayList<>();
         List<String> updatedLines = new ArrayList<>();
 
-        try (BufferedReader reader1 = new BufferedReader(new FileReader(file1Lines));
-             BufferedReader reader2 = new BufferedReader(new FileReader(file2Lines))
-        ) {
-            String originaLine;
-            while ((originaLine = reader1.readLine()) != null) {
-                originalLines.add(originaLine);
+        try (BufferedReader reader1 = new BufferedReader(new FileReader(fileName1));
+             BufferedReader reader2 = new BufferedReader(new FileReader(fileName2))) {
+            String line;
+            while ((line = reader1.readLine()) != null) {
+                originalLines.add(line);
+            }
+            while ((line = reader2.readLine()) != null) {
+                updatedLines.add(line);
             }
 
-            String updatedLine;
-            while ((updatedLine = reader2.readLine()) != null) {
-                updatedLines.add(updatedLine);
+            while (!originalLines.isEmpty() && !updatedLines.isEmpty()) {
+                if (originalLines.get(0).equals(updatedLines.get(0))) {
+                    lines.add(new LineItem(Type.SAME, originalLines.get(0)));
+                    originalLines.remove(0);
+                    updatedLines.remove(0);
+                } else if (updatedLines.size() > 1 && originalLines.get(0).equals(updatedLines.get(1))) {
+                    lines.add(new LineItem(Type.ADDED, updatedLines.get(0)));
+                    updatedLines.remove(0);
+                } else if (originalLines.size() > 1 && originalLines.get(1).equals(updatedLines.get(0))) {
+                    lines.add(new LineItem(Type.REMOVED, originalLines.get(0)));
+                    originalLines.remove(0);
+                }
             }
-        }
 
-        int i = 0;
-        int j = 0;
-
-        while (i < originalLines.size() && j < updatedLines.size()) {
-            if (originalLines.get(i).equals(updatedLines.get(j))) {
-                lines.add(new LineItem(Type.SAME, originalLines.get(i)));
-                i++;
-                j++;
-            } else if ((j + 1) < updatedLines.size() && originalLines.get(i).equals(updatedLines.get(j + 1))) {
-                lines.add(new LineItem(Type.ADDED, updatedLines.get(j)));
-                j++;
-            } else if ((i + 1) < originalLines.size() && originalLines.get(i + 1).equals(updatedLines.get(j))) {
-                lines.add(new LineItem(Type.REMOVED, originalLines.get(i)));
-                i++;
+            while (!originalLines.isEmpty()) {
+                lines.add(new LineItem(Type.REMOVED, originalLines.get(0)));
+                originalLines.remove(0);
             }
-        }
-
-        // Всё, что осталось в originalLines — это REMOVED
-        while (i < originalLines.size()) {
-            lines.add(new LineItem(Type.REMOVED, originalLines.get(i)));
-            i++;
-        }
-
-// Всё, что осталось в updatedLines — это ADDED
-        while (j < updatedLines.size()) {
-            lines.add(new LineItem(Type.ADDED, updatedLines.get(j)));
-            j++;
+            while (!updatedLines.isEmpty()) {
+                lines.add(new LineItem(Type.ADDED, updatedLines.get(0)));
+                updatedLines.remove(0);
+            }
         }
     }
 
+
+    public static enum Type {
+        ADDED,        //добавлена новая строка
+        REMOVED,      //удалена строка
+        SAME          //без изменений
+    }
 
     public static class LineItem {
         public Type type;
@@ -74,11 +71,5 @@ public class Solution {
             this.type = type;
             this.line = line;
         }
-    }
-
-    public static enum Type {
-        ADDED,
-        REMOVED,
-        SAME
     }
 }
